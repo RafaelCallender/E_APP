@@ -1,8 +1,7 @@
-﻿using E_APP.SECURITY_SERVICES;
-using E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT;
+﻿using E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT;
 using E_APP.SERVICES.AUDIO_SERVICES;
 using E_APP.SERVICES.LIFE_STUDY_SERVICES.THE_BOOK_OF_JUBILEES;
-
+using E_APP.SERVICES.SECURITY_SERVICES;
 
 namespace E_APP.VIEW.LIFE_STUDY_VIEW.LIFE_SELECTION_VIEW
 {
@@ -36,12 +35,12 @@ namespace E_APP.VIEW.LIFE_STUDY_VIEW.LIFE_SELECTION_VIEW
                     {
                         case 1:
 
-                            data01[2] += $"{The_Book_Of_Jubilee.read_full_jubiless_text()}\n";
+                            data01[2] =The_Book_Of_Jubilee.read_full_book_text();
                             Console.WriteLine(data01[2]);
 
                             break;
                         case 2:
-                            data01[2] += $"{The_Book_Of_Jubilee.read_full_jubiless_text()}\n";
+                            data01[2] += $"{The_Book_Of_Jubilee.read_full_book_text()}\n";
                             await Audio_Serv01.text_to_voice01(data01[2]);
                             Console.WriteLine(data01[2]);
                             break;
@@ -52,7 +51,7 @@ namespace E_APP.VIEW.LIFE_STUDY_VIEW.LIFE_SELECTION_VIEW
                             data01[3] = Console.ReadLine();
                             if (Security_Serv01.empty_string(data01[3]) == true)
                             {
-                                data01[4] = await Ai_Text_To_T01.text_to_text_content01(data01[3], The_Book_Of_Jubilee.LoadJubilessChunks);
+                                data01[4] = await Ai_Text_To_T01.text_to_text_content01(data01[3], The_Book_Of_Jubilee.LoadBookChunks);
                                 Console.WriteLine(data01[4]);
                             }
                             else

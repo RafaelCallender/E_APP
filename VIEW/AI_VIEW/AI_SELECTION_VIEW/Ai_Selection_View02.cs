@@ -1,5 +1,5 @@
-﻿using E_APP.SECURITY_SERVICES;
-using E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT;
+﻿using E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT;
+using E_APP.SERVICES.SECURITY_SERVICES;
 
 
 namespace E_APP.VIEW.AI_VIEW.AI_SELECTION_VIEW
@@ -17,8 +17,7 @@ namespace E_APP.VIEW.AI_VIEW.AI_SELECTION_VIEW
         {
 
             data01[0] =
-                        $"1.) Ai text gemeration \n" +
-                        $"2.) Ai translate gemeration \n";
+                        $"1.) Ai text gemeration \n";
             Console.WriteLine(data01[0]);
             data01[1] = Console.ReadLine();
 
@@ -34,7 +33,7 @@ namespace E_APP.VIEW.AI_VIEW.AI_SELECTION_VIEW
                             data01[3] = Console.ReadLine();
                             if (Security_Serv01.empty_string(data01[3]) == true)
                             {
-                                data01[4] = await Ai_Text_To_T01.text_generation(data01[3]);
+                                data01[4] = await Ai_Text_To_T01.text_to_text_generator01(data01[3]);
                                 Console.WriteLine(data01[4]);
                             }
                             else
@@ -44,24 +43,7 @@ namespace E_APP.VIEW.AI_VIEW.AI_SELECTION_VIEW
                             }
 
                             break;
-                        case 2:
-                            data01[2] = "Tell me whats to translate";
-                            Console.WriteLine(data01[2]);
-                            data01[3] = Console.ReadLine();
-                            if (Security_Serv01.empty_string(data01[3]) == true)
-                            {
-                                data01[4] = await Ai_Text_To_T01.text_generation(data01[3]);
-                                Console.WriteLine(data01[4]);
-                            }
-                            else
-                            {
-                                data01[4] = "Input cannot be empty. Please try again.";
-                                Console.WriteLine(data01[4]);
-                            }
 
-
-
-                            break;
 
                     }
                 }

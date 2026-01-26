@@ -1,26 +1,31 @@
-﻿using E_APP.SERVICES.FILE_SERVICES.FILE_HELPER;
-using E_APP.SERVICES.SECURITY_SERVICES;
+﻿using E_APP.SERVICES.SECURITY_SERVICES;
+using E_APP.VIEW.USER_VIEW.USER_SELECTION_VIEW;
 
 
-namespace E_APP.VIEW.TEST_VIEW.TEST_SELECTION_VIEW
+namespace E_APP.VIEW.USER_VIEW.USER_MAIN_VIEW
 {
-    internal class Test_Selection03
+    internal class User_Main_View01
     {
         private static string[] data01 = new string[100];
         private static Security_Services01 Security_Serv01 = new Security_Services01();
-        private static File_Helper01 File_H01 = new File_Helper01();
-        public Test_Selection03()
+
+        public User_Main_View01()
         {
-            load_Test_Selection03();
+            load_User_Main_View01();
         }
-        private void load_Test_Selection03()
+        private void load_User_Main_View01()
         {
 
-            data01[0] = $"1.) find_Movie_files01\n";
-
-
+            data01[0] = $"1.) Login \n" +
+                        $"2.) create user\n" +
+                        $"3.) forgot username\n" +
+                        $"4.) forgot password\n" +
+                        $"6.) change username" +
+                        $"7.) change passowrd" +
+                        $"8.) change email";
             Console.WriteLine(data01[0]);
             data01[1] = Console.ReadLine();
+
 
             if (Security_Serv01.empty_string(data01[1]) == true)
             {
@@ -29,32 +34,35 @@ namespace E_APP.VIEW.TEST_VIEW.TEST_SELECTION_VIEW
                     switch (int.Parse(data01[1]))
                     {
                         case 1:
-
-
-                            data01[2] = File_H01.find_Movie_files01();
-                            Console.WriteLine(data01[2]);
-
-
+                            new User_Selection_View01();
                             break;
-
-
+                        case 2:
+                            new User_Selection_View02();
+                            break;
+                        case 3:
+                            new User_Selection_View03();
+                            break;
 
                     }
                 }
                 else
                 {
+
+
                     data01[2] = "Input must be only digits. Please try again.";
                     Console.WriteLine(data01[2]);
                 }
-
             }
             else
             {
                 data01[2] = "Input cannot be empty. Please try again.";
                 Console.WriteLine(data01[2]);
 
+
             }
 
+
         }
+
     }
 }

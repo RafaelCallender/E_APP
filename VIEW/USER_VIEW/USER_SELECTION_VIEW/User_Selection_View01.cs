@@ -1,27 +1,23 @@
 ﻿using E_APP.SERVICES.SECURITY_SERVICES;
-using E_APP.VIEW.TEST_VIEW.TEST_SELECTION_VIEW;
 
-namespace E_APP.VIEW.TEST_VIEW.TEST_MAIN_VIEW
+
+namespace E_APP.VIEW.USER_VIEW.USER_SELECTION_VIEW
 {
-    internal class Test_Main_View01
+    internal class User_Selection_View01
     {
         private static string[] data01 = new string[100];
         private static Security_Services01 Security_Serv01 = new Security_Services01();
-        public Test_Main_View01()
+
+        public User_Selection_View01()
         {
-            load_test_view();
+            load_User_Selection_View01();
         }
-        private void load_test_view()
+        private void load_User_Selection_View01()
         {
 
-            data01[0] = $"1.) files 01\n" +
-                        $"2.) text files \n" +
-                        $"3.) movies files \n" +
-                        $"4.) random data \n";
-
+            data01[0] = $"1.) Login \n";
             Console.WriteLine(data01[0]);
             data01[1] = Console.ReadLine();
-
 
 
             if (Security_Serv01.empty_string(data01[1]) == true)
@@ -31,33 +27,35 @@ namespace E_APP.VIEW.TEST_VIEW.TEST_MAIN_VIEW
                     switch (int.Parse(data01[1]))
                     {
                         case 1:
-                            new Test_Selection01();
+                         
                             break;
                         case 2:
-                            new Test_Selection02();
+                          
                             break;
                         case 3:
-                            new Test_Selection03();
+                        
                             break;
-                        case 4:
-                            new Test_Selection04();
-                            break;
+
                     }
                 }
                 else
                 {
-                    data01[1] = "Input must be only digits. Please try again.";
-                    Console.WriteLine(data01[1]);
 
 
+                    data01[2] = "Input must be only digits. Please try again.";
+                    Console.WriteLine(data01[2]);
                 }
             }
             else
             {
-                data01[1] = "Input must be only digits. Please try again.";
-                Console.WriteLine(data01[1]);
+                data01[2] = "Input cannot be empty. Please try again.";
+                Console.WriteLine(data01[2]);
+
 
             }
+
+
         }
+
     }
 }
