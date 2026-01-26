@@ -2,6 +2,7 @@
 using E_APP.SERVICES.LIFE_STUDY_SERVICES.THE_BIBLE;
 using LLama;
 using LLama.Common;
+using LLama.Native;
 using System.Text;
 
 
@@ -20,79 +21,41 @@ namespace E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT
 
         private static readonly List<string> ContentChunks = new();
         private static bool _chunksLoaded = false;
+        private static LLamaWeights model;
+        private static LLamaContext context;
 
         // Common Bible stopwords
         private static readonly HashSet<string> StopWords = new(StringComparer.OrdinalIgnoreCase)
 {
     "the","and","shall","said","unto","that","for","with","they","them","his","her"
 };
-        public async Task<string> text_generation(string input)
-        {
-            //  data01[1] = await text_to_text_generator01(input);
-            data01[1] = await text_to_text_generator02(input);
 
-            return data01[1];
-        }
 
-        private async Task<string> text_to_text_generator01(string input)
-        {
-            int index = 1;
-            string[] model01 = File_H01.all_embedded_gguf_models().Split("\n");
-            string file01 = model01[index].Trim();
-            string fileName = string.Join(".",
-                              model01[index].Split('.').TakeLast(2));
-            var parameters = new ModelParams(file01)
-            {
-                ContextSize = 512,
-                GpuLayerCount = 0 // Use CPU only
-            };
-            using var model = LLamaWeights.LoadFromFile(parameters);
-            using var context = model.CreateContext(parameters);
-            var executor = new InteractiveExecutor(context);
-            var session = new ChatSession(executor);
-            var inferenceParams = new InferenceParams
-            {
-                MaxTokens = 128,
 
-            };
-            var userMessage = new ChatHistory.Message(AuthorRole.User, input);
-            await foreach (var token in session.ChatAsync(userMessage, inferenceParams, CancellationToken.None))
-            {
-                data01[0] += (token);
-            }
 
-            return data01[0];
-        }
-
-        private async Task<string> text_to_text_generator02(string input)
+        public async Task<string> text_to_text_generator01(string input)
         {
             int index = 0;
             string[] models = File_H01.all_text_to_text_gguf_models();
             string modelPath = models[index].Trim();
-
-            // Estimate needed context size: input length + buffer (say 50% extra)
-            int estimatedInputTokens = Math.Max(32, input.Length / 4); // rough estimate: 1 token ~ 4 chars
-            uint contextSize = (uint)Math.Min(4096, estimatedInputTokens + 128); // don't exceed model max
-
-            // Estimate output size: 2x input length (or max 1024)
-            int maxTokens = Math.Min(1024, estimatedInputTokens * 2);
-
             var parameters = new ModelParams(modelPath)
             {
-                ContextSize = contextSize,
-                GpuLayerCount = 0 // CPU
+                ContextSize = 4096,
+                GpuLayerCount = -1 // CPU
             };
 
-            using var model = LLamaWeights.LoadFromFile(parameters);
-            using var context = model.CreateContext(parameters);
+            model = LLamaWeights.LoadFromFile(parameters);
+            context = model.CreateContext(parameters);
+            LLamaToken[] tokenIds = context.Tokenize(input, true);
+            int exactTokenCount = tokenIds.Length;
 
             var inferenceParams = new InferenceParams
             {
-                MaxTokens = maxTokens
+                MaxTokens = exactTokenCount
 
             };
 
-            data01[0] = "";
+
             var executor = new InteractiveExecutor(context);
             await foreach (var token in executor.InferAsync(input, inferenceParams, CancellationToken.None))
             {
@@ -106,40 +69,24 @@ namespace E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT
             int index = 0;
             string[] models = File_H01.all_text_to_text_gguf_models();
             string modelPath = models[index].Trim();
-
-
-
             string prompt =
         $@"Translate the following text from {input.ToUpper().Trim()} to {input01.ToUpper().Trim()}.
         and only output the translated text.       
         Text: ""{input02}""";
-
-
-
-
-            // Estimate needed context size: input length + buffer (say 50% extra)
-            int estimatedInputTokens = Math.Max(32, prompt.Length / 4); // rough estimate: 1 token ~ 4 chars
-            uint contextSize = (uint)Math.Min(4096, estimatedInputTokens + 128); // don't exceed model max
-
-            // Estimate output size: 2x input length (or max 1024)
-            int maxTokens = Math.Min(1024, estimatedInputTokens * 2);
-
             var parameters = new ModelParams(modelPath)
             {
-                ContextSize = contextSize,
-                GpuLayerCount = 0 // CPU
+                ContextSize = 4096,
+                GpuLayerCount = -1
             };
 
-            using var model = LLamaWeights.LoadFromFile(parameters);
-            using var context = model.CreateContext(parameters);
-
+            model = LLamaWeights.LoadFromFile(parameters);
+            context = model.CreateContext(parameters);
+            LLamaToken[] tokenIds = context.Tokenize(prompt, true);
+            int exactTokenCount = tokenIds.Length;
             var inferenceParams = new InferenceParams
             {
-                MaxTokens = maxTokens
-
+                MaxTokens = exactTokenCount
             };
-
-            data01[0] = "";
             var executor = new InteractiveExecutor(context);
             await foreach (var token in executor.InferAsync(prompt, inferenceParams, CancellationToken.None))
             {
@@ -150,14 +97,12 @@ namespace E_APP.SERVICES.AI_SERVICES.AI_TEXT_TO_TEXT
         }
 
 
-        public async Task<string> text_to_text_bible(string question)
+        public async Task<string> text_to_text_content01(string question)
         {
             int index = 0;
             string[] models = File_H01.all_text_to_text_gguf_models();
             string modelPath = models[index].Trim();
-
             string bibleContext = The_Bible_Serv01.read_full_bible_text();
-
             string prompt =
         $"""
 You are a Bible scholar.
@@ -173,45 +118,37 @@ Question:
 Answer:
 """;
 
-            int estimatedInputTokens = Math.Max(128, prompt.Length / 4);
-            uint contextSize = (uint)Math.Min(4096, estimatedInputTokens + 256);
-            int maxTokens = 512;
-
             var parameters = new ModelParams(modelPath)
             {
-                ContextSize = contextSize,
-                GpuLayerCount = 0 // CPU
+                ContextSize = 4096,
+                GpuLayerCount = -1
             };
 
-            using var model = LLamaWeights.LoadFromFile(parameters);
-            using var context = model.CreateContext(parameters);
-
+           model = LLamaWeights.LoadFromFile(parameters);
+           context = model.CreateContext(parameters);
+            LLamaToken[] tokenIds = context.Tokenize(prompt, true);
+            int exactTokenCount = tokenIds.Length;
             var inferenceParams = new InferenceParams
             {
-                MaxTokens = maxTokens,
-
+                MaxTokens = exactTokenCount
             };
 
             var executor = new InteractiveExecutor(context);
-
-            string output = "";
             await foreach (var token in executor.InferAsync(prompt, inferenceParams, CancellationToken.None))
             {
-                output += token;
+                data01[0] += token;
             }
 
-            return output.Trim();
+            return data01[0].Trim();
         }
         public async Task<string> text_to_text_content01(string question, Action chunkLoader)
         {
-            // Load model
+
             string modelPath = File_H01
                 .all_text_to_text_gguf_models()[0]
                 .Trim();
 
             var context = GetContext(modelPath);
-
-            // Get context chunks using the passed-in loader
             string bibleContext = RetrieveContext(question, chunkLoader, maxChunks: 3);
 
             string prompt = $"""
@@ -229,7 +166,7 @@ Answer:
 
             var inferenceParams = new InferenceParams
             {
-                MaxTokens = 256
+                MaxTokens = 512
             };
 
             var executor = new InteractiveExecutor(context);
@@ -256,7 +193,7 @@ Answer:
                 var parameters = new ModelParams(modelPath)
                 {
                     ContextSize = 4096, 
-                    GpuLayerCount = 0
+                    GpuLayerCount = -1
                 };
 
                 _weights = LLamaWeights.LoadFromFile(parameters);

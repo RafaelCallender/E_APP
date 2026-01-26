@@ -11,7 +11,7 @@ namespace E_APP.SERVICES.NEWS_SERVICES
 {
     internal class News_Services01
     {
-        private static string[] data01 = new string[3];
+        private static string[] data01 = new string[100];
         private List<string> status = new List<string>();
         private List<string> request_id = new List<string>();
         private List<string> title = new List<string>();
