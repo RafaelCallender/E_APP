@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="FILES\JSON\JSON_EMBEDDED\GMAIL01.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="FILES\EXCEL\EXCEL_EMBEDDED\dog_breads.csv" />
+		<EmbeddedResource Include="FILES\EXTERNAL\GGUF\GGUF_EMBEDDED\GGUF_EMBEDDED01.gguf" />
+		<EmbeddedResource Include="FILES\IMAGES\IMAGES_EMBEDDED\default_group_face01.jpg" />
+		<EmbeddedResource Include="FILES\IMAGES\IMAGES_EMBEDDED\default_single_face01.jpg" />
+		<EmbeddedResource Include="FILES\IMAGES\IMAGES_EMBEDDED\default_single_face02.jpg" />
+		<EmbeddedResource Include="FILES\IMAGES\IMAGES_EMBEDDED\default_single_face03.jpg" />
+		<EmbeddedResource Include="FILES\JSON\JSON_EMBEDDED\GMAIL01.json" />
+		<EmbeddedResource Include="FILES\PDF\PDF_EMBEDDED\Book_of_Jasher.pdf" />
+		<EmbeddedResource Include="FILES\PDF\PDF_EMBEDDED\book_of_judith.pdf" />
+		<EmbeddedResource Include="FILES\PDF\PDF_EMBEDDED\The_Book_of_Jubilees.pdf" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\API.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\Chemistry.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\Chemistry01.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\cloudinary_com.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\hairstyle_info_01.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\hairstyle_info_02.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\Language_Abbreviation.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\Language_Name.txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\The_Book_of_Enoch..txt" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\The_Book_of_Jubilees.txt" />
+		<EmbeddedResource Include="SERVICES\PYTHON_SERVICES\AI_SERVICES\AI_IMAGE_EDIT\Ai_Image_Edit01.py" />
+		<EmbeddedResource Include="SERVICES\PYTHON_SERVICES\AI_SERVICES\AI_TEXT_TO_IMAGE\Ai_Text_To_Image01.py" />
+		<EmbeddedResource Include="SERVICES\PYTHON_SERVICES\AI_SERVICES\AI_TEXT_TO_IMAGE\Ai_Text_To_Image02.py" />
+		<EmbeddedResource Include="SERVICES\PYTHON_SERVICES\AI_SERVICES\AI_TEXT_TO_IMAGE\Ai_Text_To_Image03.py" />
+		<EmbeddedResource Include="SERVICES\PYTHON_SERVICES\AI_SERVICES\AI_TEXT_TO_IMAGE\Ai_Text_To_Image04.py" />
+		<EmbeddedResource Include="FILES\TEXT\TEXT_EMBEDDED\The_Bible_KJV.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="FILES\AUDIO\AUIDO_EMBEDDED\" />
+		<Folder Include="FILES\AUDIO\AUIDO_SAVED\" />
+		<Folder Include="FILES\EXCEL\EXCEL_SAVED\" />
+		<Folder Include="FILES\EXTERNAL\SAFETERNSORS\SAFETERNSORS_LOCAL\" />
+		<Folder Include="FILES\EXTERNAL\SAFETERNSORS\SAFETERNSORS_EMBEDDED\" />
+		<Folder Include="FILES\IMAGES\IMAGE_SAVED\" />
+		<Folder Include="FILES\JSON\JSON_SAVED\" />
+		<Folder Include="FILES\PDF\PDF_SAVED\" />
+		<Folder Include="FILES\TEXT\TEXT_SAVED\" />
+		<Folder Include="FILES\VIDEO\VIDEO_SAVED\" />
+		<Folder Include="FILES\VIDEO\VIDEO_EMBEDDED\" />
+		<Folder Include="MODEL\SQL_MODEL\SQL_MODEL\SQL_NBA_MODEL\SQL_NBA_SET_MODEL\" />
+		<Folder Include="SERVICES\PYTHON_SERVICES\AI_SERVICES\AI_TEXT_TO_VIDEO\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_USER_SERVICES\SQLITE_TEST_SERVICES\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_SPORTS_SERVICES\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_SCIENCE_SERVICES\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_MOVIES_SERVICES\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_FILE_SERVICES\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_CLIENTS_SERVICES\" />
+		<Folder Include="SERVICES\SQLITE\SQLITE_SERVICES\SQLITE_AI_SERVICES\" />
+		<Folder Include="TEMPLATE\XML\" />
+		<Folder Include="VIEW\SPORTS_VIEW\SPORTS_SELECTION_VIEW\SPORTS_SELECCTION_NFL_VIEW\" />
+	</ItemGroup>
+	<ItemGroup>
+	<PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.73.0.4030" />
+		<PackageReference Include="Google.Apis.Auth" Version="1.73.0" />
+		<PackageReference Include="Google.Apis.Gmail.v1" Version="1.73.0.4029" />
+		<PackageReference Include="LLamaSharp" Version="0.25.0" />
+		<PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.25.0" />
+		<PackageReference Include="LLamaSharp.Backend.Cuda12" Version="0.25.0" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="LLamaSharp.Backend.Cpu.Android" Version="0.25.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.2" />
+		<PackageReference Include="CloudinaryDotNet" Version="1.28.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
+		<PackageReference Include="PdfPig" Version="0.1.13" />
+		<PackageReference Include="System.Speech" Version="10.0.2" />
+		<PackageReference Include="Whisper.net" Version="1.9.0" />
+		<PackageReference Include="Whisper.net.Runtime" Version="1.9.0" />
+	</ItemGroup>
+</Project>
