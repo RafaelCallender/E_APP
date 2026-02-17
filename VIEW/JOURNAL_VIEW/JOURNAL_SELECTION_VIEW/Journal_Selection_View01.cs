@@ -1,0 +1,58 @@
+﻿using E_APP.SERVICES.SECURITY_SERVICES;
+
+
+namespace E_APP.VIEW.JOURNAL_VIEW.JOURNAL_SELECTION_VIEW
+{
+    internal class Journal_Selection_View01
+    {
+        private static string[] data01 = new string[100];
+        private static Security_Services01 Security_Serv01 = new Security_Services01();
+
+        public Journal_Selection_View01()
+        {
+            load_Journal_Selection_View01().Wait();
+        }
+        private async Task load_Journal_Selection_View01()
+        {
+
+            data01[0] = $"1.) Write Journal\n";
+  
+            Console.WriteLine(data01[0]);
+            data01[1] = Console.ReadLine() ?? string.Empty;
+
+
+            if (Security_Serv01.empty_string(data01[1]) == true)
+            {
+                if (Security_Serv01.string_only_digit(data01[1]) == true)
+                {
+
+                    switch (int.Parse(data01[1]))
+                    {
+                        case 1:
+
+                      
+                            Console.WriteLine(data01[2]);
+                            break;
+
+                    }
+                }
+                else
+                {
+                    data01[2] = "Input must be only digits. Please try again.";
+                    Console.WriteLine(data01[2]);
+
+                }
+            }
+            else
+            {
+                data01[2] = "Input cannot be empty. Please try again.";
+                Console.WriteLine(data01[2]);
+
+            }
+
+
+        }
+
+    }
+}
+
